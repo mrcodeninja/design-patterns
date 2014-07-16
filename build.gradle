@@ -1,0 +1,7 @@
+apply from: file('gradle/repositories.gradle')
+apply from: file('gradle/conventions.gradle')
+apply from: file('gradle/check.gradle')
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}

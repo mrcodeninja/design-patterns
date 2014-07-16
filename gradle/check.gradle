@@ -1,0 +1,36 @@
+apply plugin: 'build-dashboard'
+
+apply plugin: 'jacoco'
+jacocoTestReport {
+    reports {
+        csv.enabled false
+        html.enabled true
+        html.destination "${buildDir}/reports/jacoco/html"
+        xml.enabled false
+    }
+}
+buildDashboard.dependsOn(jacocoTestReport)
+
+apply plugin: 'pmd'
+pmd {
+    ignoreFailures = false
+}
+[pmdMain, pmdTest]*.reports {
+    html.enabled true
+    xml.enabled false
+}
+
+// Disabled due to lack of support for new Java 8 constructs.
+// apply plugin: 'checkstyle'
+// checkstyle {
+//     ignoreFailures = false
+//     configFile = rootProject.file('code-quality/checkstyle/checkstyle.xml')
+// }
+// apply plugin: 'findbugs'
+// findbugs {
+//     ignoreFailures = false
+// }
+// [findbugsMain, findbugsTest]*.reports {
+//     html.enabled true
+//     xml.enabled false
+// }
